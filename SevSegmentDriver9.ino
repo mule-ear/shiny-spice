@@ -5,7 +5,6 @@ int outputEnable = 12;
 int chr[16]= { 0b01110111,20,179,182,212,230,231,52,247,246,245,199,131,151,227,225 };
 // I probably should have written that(119) as 0b01110111 to indicate the segment to turn on
 int segments[8] = {2,3,4,5,6,7,8,9};
-// adding a comment for the git tutorial
     
      
 void setup()
