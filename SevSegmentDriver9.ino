@@ -7,8 +7,13 @@ int chr[16]= { 0b01110111,20,179,182,212,230,231,52,247,246,245,199,131,151,227,
 int segments[8] = {2,3,4,5,6,7,8,9};
 //adding line for git test 2    
 // adding another line in master to see how to merge into a branch
+<<<<<<< HEAD
+//and one more from latches
+// simulate work in latches branch while newBranch was merged and pushed to master
+=======
 // and one more
 
+>>>>>>> 49f5354431b94b2261e1ddc2fdd85f217fffebff
      
 void setup()
 {
