@@ -1,4 +1,6 @@
 
+#include <Wire.h>
+
 int clockPulse[2] = {10 , 11};
 //int digit2Enable = 11;
 int masterReset = 12;
@@ -6,7 +8,6 @@ int chr[16]= { 0b01110111,20,179,182,212,230,231,52,247,246,245,199,131,151,227,
 // I probably should have written that(119) as 0b01110111 to indicate the segment to turn on
 int segments[8] = {2,3,4,5,6,7,8,9};
 
-     
 void setup()
 {
      
@@ -25,20 +26,30 @@ void setup()
     digitalWrite (clockPulse[0], LOW);
     digitalWrite (clockPulse[1], LOW);
     digitalWrite (masterReset, HIGH);
+    
+    test();
 }         
     
 void loop()
 {
+ 
+      
+}
+void test()
+{
   for (int i = 0; i<=255 ; i++) 
   {
     dsplyDigits (int(i), 16);
-    delay(1000);
+    delay(20);
   }
   for (int i = 0; i<=99 ; i++) 
   {
     dsplyDigits (int(i), 10);
-    delay(500);
+    delay(20);
   }
+  digitalWrite (masterReset, LOW);
+  delay(50);
+  digitalWrite (masterReset, HIGH);
       
 }
     
