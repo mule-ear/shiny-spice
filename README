@@ -1,3 +1,5 @@
+This is just a library for using the Arduino to drive 2 lcd digits. I have some pins left over 12 and 13 - so this can be expanded to drive 2 more digits. I should also include the decimal - it's unused now (pin 5)
 
-k
+The next step is to set up the sniffer code for my i2c sniffer - which was what I wanted the 7 segment displays for in the first place.
 
+I'll create a new branch for that.
