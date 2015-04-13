@@ -1,4 +1,5 @@
 // Written by mule-ear on or about 2015/04/14
+// This code is 100% original. If you can use it - please do.
 
 int clockPulse[2] = {10 , 11};
 //int digit2Enable = 11;
