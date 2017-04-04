@@ -1,3 +1,4 @@
 *.[oa]
 *~
-
+output.txt
+*.db
