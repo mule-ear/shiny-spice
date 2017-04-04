@@ -1,0 +1,5 @@
+entry = Inferno_ A Novel
+entry = monetDBUserGuide.html
+Is a file /mnt/Storage1/EBooks/monetDBUserGuide.html
+dir =/mnt/Storage1/EBooks
+name = monetDBUserGuide.html
