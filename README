@@ -1,3 +1,10 @@
+Going to use this to help someone else use git.
+
+But, this is a new project I have. ATM, I'm using sqlite3 to keep track of my books - though I'm going to move the db into the books
+directory so that I don't publish it here on github
+
+
+old:
 This is just a library for using the Arduino to drive 2 lcd digits. I have some pins left over 12 and 13 - so this can be expanded to drive 2 more digits. I should also include the decimal - it's unused now (pin 5)
 
 The next step is to set up the sniffer code for my i2c sniffer - which was what I wanted the 7 segment displays for in the first place.
