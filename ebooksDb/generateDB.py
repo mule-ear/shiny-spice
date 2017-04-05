@@ -1,6 +1,17 @@
 #! /usr/bin/env python3
 
-import os, sys, sqlite3, logging, logging.config
+import os, sys, sqlite3, logging, logging.config, logging.handlers, argparse
+
+def get_cli_arguments():
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-l", "--log-level", default='INFO',
+                    help="Set log level (CRITICAL, ERROR, WARNING, INFO, DEBUG)")
+    parser.add_argument("-d", "--directory", default='/mnt/Storage1/EBooks',
+                    help="Set base directory to search")
+    args = parser.parse_args()
+    #print(args)
+    return (args.log_level, args.directory)
 
 def generate_directories_table(baseDir, cur, log):
     # Populate dirs table 
@@ -79,20 +90,26 @@ def populate_files_table(cur, log):
                 sqCur1.execute(query, query_values)
                 
 if __name__ == "__main__":
-	
+
+    logLvl,basedir = get_cli_arguments()
+    numeric_level = getattr(logging, logLvl.upper(), None)
+
+    # Check the validity of the args
+    if not isinstance(numeric_level, int):
+        raise ValueError('Invalid log level: %s' % logLvl)
+    
+    if not os.path.isdir(basedir):
+        raise ValueError("Directory doesn't exists: %s" % basedir)
+    
     logging.config.fileConfig('conf/logging.conf')
     logger = logging.getLogger('generateDB')
+    logger.setLevel(numeric_level)
+    # logger pretty much straight out of the docs: https://docs.python.org/3.5/howto/logging.html
 	
-    #logging.basicConfig(filename='/tmp/generator.log',level=logging.DEBUG)
-
     sqCon = sqlite3.Connection(database="proj.db")
 	# Going to start with 2 cursors
     sqCur1 = sqCon.cursor()
     sqCur2 = sqCon.cursor()
-	
-	# get basedir from command-line, conf file, or store preferences in sqlite3
-	# but for now:
-    basedir = '/mnt/Storage1/EBooks'
 
     generate_directories_table(basedir,sqCur1,logger)
     create_tables_for_books(sqCur1, logger)
