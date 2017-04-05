@@ -1,0 +1,16 @@
+v0.0.1
+This is the start of the thing and works. 
+What it does - is collects all of the files in the 'root' directory and all of the directories themselves 
+and puts them into 3 tables - directories, books (which should be called files) and types (or extensions)
+
+For the next version, I'll add a table for files. Then I need to figure out which ones are books - 1 type at a time
+So, if it's an epub, try to extract the metadata and populate the books table
+If it's a tgz or zip file - get the contents, etc
+
+v0.0.2 - split the populate files table functionality off into it's own function - (although I should pass it the directory
+		 CREATEd a new files table - which will be the base of this app - everything will derive from a file
+		 Added logging, because this is now on github, no need for all that logging to take up space
+
+  NEXT -> (small) - probably add config file and argparse
+	(big) parse the zip and tgz files
+  Still have to figure out how to parse each type of file (epub, mobi, pdf, ...) to extract metadata for the books table

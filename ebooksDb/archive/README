@@ -1,8 +1,0 @@
-v0.0.1
-This is the start of the thing and works. 
-What it does - is collects all of the files in the 'root' directory and all of the directories themselves 
-and puts them into 3 tables - directories, books (which should be called files) and types (or extensions)
-
-For the next version, I'll add a table for files. Then I need to figure out which ones are books - 1 type at a time
-So, if it's an epub, try to extract the metadata and populate the books table
-If it's a tgz or zip file - get the contents, etc
