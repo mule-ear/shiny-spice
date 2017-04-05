@@ -1,7 +1,8 @@
 #! /usr/bin/env python3
 
-import os, sys, sqlite3, types
-#from types import *
+import os, sys, sqlite3, logging
+
+logging.basicConfig(filename='/tmp/generator.log',level=logging.DEBUG)
 
 sqCon = sqlite3.Connection(database="proj.db")
 # Going to start with 2 cursors
@@ -26,9 +27,7 @@ def generate_directories_table():
         # insertValues = (i.rsplit('/',1)[1] , i.rsplit('/',1)[0] , i)
         # sqCur1.execute("INSERT INTO directories (name, path, full_path) VALUES(?,?,?)", insertValues)
         sqCur1.execute("INSERT INTO directories (name, path, full_path) VALUES(?,?,?)", (i.rsplit('/',1)[1]+'/' , i.rsplit('/',1)[0]+'/' , i+'/'))
-    
-    #return listOfDirs
-        
+            
 def create_tables_for_books():
     # CREATE the tables needed for books
     #
@@ -54,42 +53,46 @@ def create_tables_for_books():
                     CONSTRAINT type_id FOREIGN KEY (type) REFERENCES types(id), \
                     CONSTRAINT author_id FOREIGN KEY (author) REFERENCES authors(id));")
 
-
 def does_type_exist(a_type):
     a_type = a_type.lower()
-    sqCur1.execute("SELECT id FROM types WHERE name = ?",(a_type,))
-    if sqCur1.fetchone() is None:
-        sqCur1.execute("INSERT INTO types(name) VALUES(?)", (a_type,))
+    sqCur1.execute("SELECT id FROM types WHERE extension = ?",(a_type,))
+    result = sqCur1.fetchone()
+    if result is None:
+        sqCur1.execute("INSERT INTO types(name,extension) VALUES(NULL,?)", (a_type,))
+        logging.info("Adding type {} to types table".format(a_type))
     else:
-        print("type exists = ",result)
+        logging.debug("type exists = {}".format(result))
 
-if __name__ == "__main__":
-
-    generate_directories_table()
-    create_tables_for_books()
-
-    # even though I could have gotten this from generate_directories_table() I thought it would be confusing
+def populate_files_table():
+	# even though I could have gotten this from generate_directories_table() I thought it would be confusing
     listOfDirs = [x[0] for x in os.walk(basedir)]
 
     for dir1 in listOfDirs:
 
         for entry in os.listdir(dir1):
-            print("entry = " + entry)
+            logging.debug("entry = " + entry)
             # make sure it's a file (and not a dir) and it has an extension
             if (os.path.isfile(os.path.join(dir1, entry)) and '.' in entry):
-                print("Is a file " + dir1+ '/' + entry)
+                logging.debug("Is a file " + dir1+ '/' + entry)
                 # make sure it has an extension
-                print("dir ="+ dir1)
-                print("full_name = " + entry)
+                logging.debug("dir ="+ dir1)
+                logging.debug("full_name = " + entry)
                 sqCur1.execute("SELECT id FROM directories WHERE full_path = ?",(dir1 + '/',))
                 result = sqCur1.fetchone()
-                print("result = " ,result)
+                logging.debug("result = " + str(result))
                 name, ext = entry.rsplit('.',1)
                 does_type_exist(ext)
-                query = "INSERT INTO files(name, path, type) VALUES(?,(SELECT id FROM directories WHERE full_path = ?) , (SELECT id FROM types WHERE name = ?))"            
-                print("name = {0}, ext = {1}".format(name, ext))
+                query = "INSERT INTO files(name, path, type) VALUES(?,(SELECT id FROM directories WHERE full_path = ?) , (SELECT id FROM types WHERE extension = ?))"            
+                logging.debug("name = {0}, ext = {1}".format(name, ext))
                 query_values = (name, dir1 + '/', ext)
                 sqCur1.execute(query, query_values)
+                
+if __name__ == "__main__":
+
+    generate_directories_table()
+    create_tables_for_books()
+    populate_files_table()
+
 
             
 sqCon.commit()
