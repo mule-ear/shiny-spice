@@ -14,3 +14,11 @@ v0.0.2 - split the populate files table functionality off into it's own function
   NEXT -> (small) - probably add config file and argparse
 	(big) parse the zip and tgz files
   Still have to figure out how to parse each type of file (epub, mobi, pdf, ...) to extract metadata for the books table
+
+v0.0.3 - added some argparse switches and logging.
+	now you can specify the database name, set the log level, or change the default 'root' directory to search
+	added some error checking (mostly for the arg_parse switches) enclosed the insert in a try/catch block
+	cleaned up the logging a little to make it easier to read
+
+v0.0.4 - added config file readerand config file, though I'll rename it before committing
+	command line switches will override conf file values - tested
