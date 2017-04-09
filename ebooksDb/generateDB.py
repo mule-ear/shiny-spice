@@ -9,7 +9,7 @@ try:
     import magic
 
 except Exception as e:
-    raise ("The 'magic' library is not installed - please install with sudo pip install python-magic")
+    raise Exception ("The 'magic' library is not installed - please install with sudo pip3 install python-magic")
 
 '''generateDB.py
 
