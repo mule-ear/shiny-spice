@@ -20,5 +20,5 @@ v0.0.3 - added some argparse switches and logging.
 	added some error checking (mostly for the arg_parse switches) enclosed the insert in a try/catch block
 	cleaned up the logging a little to make it easier to read
 
-v0.0.4 - added config file readerand config file, though I'll rename it before committing
+v0.0.4 - added config file reader and config file, though I'll rename it before committing
 	command line switches will override conf file values - tested
