@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'gcc test.c -o test'
+                sh -c 'gcc test.c -o test'
             }
         }
     }
