@@ -1,3 +1,3 @@
 #! /bin/bash
 
-gcc test.c -o builds/test121
+gcc test.c -o ./builds/test121
