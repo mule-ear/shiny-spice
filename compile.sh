@@ -1,3 +1,3 @@
 #! /bin/bash
 
-gcc test.c -o test21
+gcc test.c -o test121
